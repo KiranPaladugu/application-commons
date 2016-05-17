@@ -1,0 +1,36 @@
+<plugin name="XMLTreeView" className="Activator" version="1.0.1" id="">
+ <identifier>XMLTreeView</identifier>
+ <plugin-type>Add-on</plugin-type>
+ <activatorMethod>methodName</activatorMethod>
+ <deactivatorMethod>methodName</deactivatorMethod>
+ <methods>
+	<method name="methodName"  clasName="SomeClassName">
+		<inputParams>
+			<param>
+				<paramClass>java.lang.String</paramClass>
+				<param-type>Array</param-type>
+			</param>
+			<param>
+				<paramClass>java.lang.Map</paramClass>
+				<param-type>Object</param-type>
+			</param>
+		</inputParams>
+		<outputParams>
+			<param>
+				<paramClass>java.lang.String</paramClass>
+				<param-type>Array</param-type>
+			</param>
+		</outputParams>
+		<exceptions>
+			<exception>com.abc.Exception</exception>
+		</exceptions>
+	</method>
+ </methods>
+<dependencies>
+<dependency>
+	<plugin-name>pluignName/jarFileName</plugin-name>
+	<plugin-identifier>optionalforJarFiles</plugin-identifier>
+	<plugin-location>LIBRARY/PLUGIN</plugin-location>
+</dependency>
+</dependencies>
+</plugin>
