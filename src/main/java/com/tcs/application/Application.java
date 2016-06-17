@@ -19,6 +19,7 @@ public class Application implements Subscriber {
     public static final String LOAD_PLUGINS = "loadPlugins";
     public static final String PLUGIN_FOUND = "plugin_found";
     public static final String PLUGIN_LOAD_FAILED = "pluginLoadFailed";
+    public static final String PLUGIN_LOAD_COMPLETE="pluignLoadingCompleted";
 
     private static Application application = new Application();
     private AtomicBoolean started = new AtomicBoolean(false);

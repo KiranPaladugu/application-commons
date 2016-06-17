@@ -5,13 +5,19 @@ package com.tcs.application.pluign;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginDependency implements Serializable{
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    @XmlElement(name="plugin-name")
     private String pluginName;
+    @XmlElement(name="plugin-identifier")
     private String pluginIdentifier;
+    @XmlElement(name="plugin-location")
     private String pluginLocation;
     
     /**

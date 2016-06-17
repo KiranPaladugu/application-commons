@@ -5,6 +5,9 @@ package com.tcs.application.pluign;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginMethodParam implements Serializable{
     /**
      * 
@@ -14,7 +17,9 @@ public class PluginMethodParam implements Serializable{
         Array, Object, Void
     };
 
+    @XmlElement(name="paramClass")
     private String paramClass;
+    @XmlElement(name="param-type")
     private ParamTypes paramType;
     
     

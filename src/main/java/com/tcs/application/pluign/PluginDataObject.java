@@ -5,24 +5,43 @@ package com.tcs.application.pluign;
 
 import java.io.Serializable;
 
-public class PluginDataObject implements Serializable {
+import javax.xml.bind.annotation.*;
+
+import com.tcs.application.Plugin;
+
+@XmlRootElement(name="plugin")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class PluginDataObject implements Serializable,Plugin {
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
+    @XmlAttribute(required=true)
     private String name;
+    @XmlElement(required=true)
     private String identifier;
+    @XmlElement(required=false)
     private String pluginType;
+    @XmlAttribute(required=true)
     private String className;
+    @XmlElement(required=false)
     private String methodName;
+    @XmlElement(required=true)
     private String activatorMethod;
+    @XmlElement
     private String deActivatorMethod;
+    @XmlAttribute(required=true)
     private String version;
+    @XmlElement
     private PluginMethods methods;
+    @XmlElement
     private PluginDependencies dependencies;
-    private String[] memberNames = { "name", "version", "className", "id" };
+    
+    @XmlAttribute(name="id")
+    private String id;
+//    private String[] memberNames = { "name", "version", "className", "id" };
 
     public synchronized String getActivatorMethod() {
         return activatorMethod;
@@ -31,10 +50,23 @@ public class PluginDataObject implements Serializable {
     public synchronized void setActivatorMethod(String activatorMethod) {
         this.activatorMethod = activatorMethod;
     }
-
-    public synchronized String[] getMemberNames() {
-        return memberNames;
+    
+    public synchronized boolean hasDependencies(){
+        boolean flag = false;
+        if(dependencies!=null && dependencies.getDependencies().size()>0){
+            flag =true;
+        }
+        return flag;
     }
+
+    /**
+     * 
+     */
+    public PluginDataObject() {
+    }
+//    public synchronized String[] getMemberNames() {
+//        return memberNames;
+//    }
 
     /**
      * @param name
@@ -188,5 +220,31 @@ public class PluginDataObject implements Serializable {
     public void setDeActivatorMethod(String deActivatorMethod) {
         this.deActivatorMethod = deActivatorMethod;
     }
+
+    public synchronized String getId() {
+        return id;
+    }
+
+    public synchronized void setId(String id) {
+        this.id = id;
+    }
+
+    /* (non-Javadoc)
+     * @see com.tcs.application.Plugin#setPlugId(java.lang.String)
+     */
+    @Override
+    public void setPlugId(String id) {
+     this.setId(id);
+    }
+
+    /* (non-Javadoc)
+     * @see com.tcs.application.Plugin#getPlugId()
+     */
+    @Override
+    public String getPlugId() {
+        return this.id;
+    }
+
+   
 
 }

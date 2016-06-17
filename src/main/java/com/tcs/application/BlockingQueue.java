@@ -30,48 +30,48 @@ public class BlockingQueue<T> {
 
     public synchronized void insert(T element) throws InterruptedException {
         while(queue.size() == capacity) {
-            log(name+" is Full : Block this until queue is available");
+            log(name+" is full : wait until queue is available");
             wait();
         }
 
         queue.add(element);
-        log(name+" is NOT Empty : notify others to read");
+        log(name+" is available to read : notify others to read");
         notify();
         // notifyAll();
     }
 
     public synchronized T remove() throws InterruptedException {
         while(queue.isEmpty()) {
-            log(name+" is Empty : Block this until queue is available");
+            log(name+" is empty : wait until queue is available to read");
             wait();
         }
 
         T item = queue.remove();
-        log("Making "+name+" is avilable to fill : notify others to Fill");
+        log("Making "+name+" is avilable to fill : notify others to fill");
         notify(); 
      // notifyAll();
         return item;
     }
     public synchronized void insert(T element , long timeout) throws InterruptedException {
         while(queue.size() == capacity) {
-            log(name+" is Full : Block this until queue is available");
+            log(name+" is full : wait until queue is available");
             wait(timeout);
         }
 
         queue.add(element);
-        log(name+" is NOT Empty : notify others to read");
+        log(name+" is availabe to read : notify others to read");
         notify();
         // notifyAll();
     }
 
     public synchronized T remove(long timeout) throws InterruptedException {
         while(queue.isEmpty()) {
-            log(name+" is Empty : Block this until queue is available");
+            log(name+" is empty : wait until queue is available");
             wait(timeout);
         }
 
         T item = queue.remove();
-        log("Making "+name+" is avilable to fill : notify others to Fill");
+        log("Making "+name+" is avilable to fill : notify others to fill");
         notify(); 
      // notifyAll();
         return item;

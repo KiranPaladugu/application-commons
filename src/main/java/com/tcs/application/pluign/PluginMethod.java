@@ -5,18 +5,25 @@ package com.tcs.application.pluign;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginMethod implements Serializable {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    @XmlAttribute
     private String className;
+    @XmlAttribute
     private String methodName;
+    @XmlElement(name="inputParams")
     private PluginMethodInputParam input;
+    @XmlElement(name="outputParams")
     private PluginMethodOutputParam output;
+    @XmlElement(name="exceptions")
     private PluginDeclaredExceptions exceptions;
 
-    private String memberNames[] = { "name", "class" };
 
     /**
      * @param className
@@ -26,6 +33,11 @@ public class PluginMethod implements Serializable {
         super();
         this.className = className;
         this.methodName = methodName;
+    }
+    /**
+     * 
+     */
+    public PluginMethod() {
     }
 
     public synchronized String getClassName() {
@@ -117,8 +129,5 @@ public class PluginMethod implements Serializable {
         return true;
     }
 
-    public String[] getMemberNames() {
-        return memberNames;
-    }
 
 }

@@ -5,14 +5,23 @@ package com.tcs.application.pluign;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginDeclaredException implements Serializable {
     
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    @XmlElement(name="exception")
     public String exceptionClass;
 
+    /**
+     * 
+     */
+    public PluginDeclaredException() {
+    }
     
     /**
      * @param exceptionClass

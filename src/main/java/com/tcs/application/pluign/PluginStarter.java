@@ -6,6 +6,7 @@ package com.tcs.application.pluign;
 import com.tcs.application.*;
 
 public class PluginStarter implements Subscriber {
+    private Plugin plugin;
 
     /*
      * (non-Javadoc)
@@ -22,6 +23,10 @@ public class PluginStarter implements Subscriber {
      */
     public void startPluin(PluginDataObject pluginDataObject) {
         try {
+            this.setPlugin(pluginDataObject);
+            if(pluginDataObject.hasDependencies()){
+//                Application.getPluginManager().isPluginLoaded();
+            }
             String className = pluginDataObject.getClassName();
             String method = pluginDataObject.getActivatorMethod();
             ClassLoader classLoader = ClassLoader.getSystemClassLoader();
@@ -38,6 +43,7 @@ public class PluginStarter implements Subscriber {
 
     public void stopPlugin(PluginDataObject pluignObject) {
         try {
+            this.setPlugin(pluignObject);
             String className = pluignObject.getClassName();
             String method = pluignObject.getDeActivatorMethod();
             ClassLoader classLoader = ClassLoader.getSystemClassLoader();
@@ -50,6 +56,14 @@ public class PluginStarter implements Subscriber {
             e.printStackTrace();
             Application.getSubscriptionManager().notifySubscriber(PluginManager.PLUGIN_STOP_FAIL, this, pluignObject);
         }
+    }
+
+    public Plugin getPlugin() {
+        return plugin;
+    }
+
+    private void setPlugin(Plugin plugin) {
+        this.plugin = plugin;
     }
 
 }

@@ -3,6 +3,8 @@
  ******************************************************************************* */
 package com.tcs.application.pluign;
 
+import java.util.*;
+
 import com.tcs.application.*;
 
 public class PluginManager implements Subscriber {
@@ -28,6 +30,7 @@ public class PluginManager implements Subscriber {
     public static final String PLUGIN_LOAD_FAILED = "pluginLoadFailed";
 
     private PluginLoader pluignLoader = new PluginLoader();
+    private Map<ManagablePlugin, Plugin> plugins = new HashMap<>();
 
     /**
      * 
@@ -76,7 +79,9 @@ public class PluginManager implements Subscriber {
             try {
                 Object obj = pluginLoaderQueue.peek();
                 if(obj != null && obj instanceof PluginStarter){
-                    pluginLoaderQueue.remove(30);
+                    PluginStarter str = (PluginStarter) pluginLoaderQueue.remove(30);
+                    plugins.put(ManagablePlugin.getMO(str.getPlugin()), str.getPlugin());
+                    
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -93,6 +98,19 @@ public class PluginManager implements Subscriber {
      */
     public void stopAllPlugins() {
         
+    }
+
+    /**
+     * 
+     */
+    public boolean isPluginLoaded(String name, String identifier ) {
+        Set<ManagablePlugin> keys = this.plugins.keySet();
+        for(ManagablePlugin managablePlugin:keys){
+            if(managablePlugin.getName().equals(name) && managablePlugin.getIdentifier().equals(identifier)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

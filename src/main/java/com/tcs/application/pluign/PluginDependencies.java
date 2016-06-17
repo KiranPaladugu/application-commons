@@ -7,11 +7,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginDependencies implements Serializable{
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    @XmlElement(name="dependency")
     private Set<PluginDependency> dependencies = new HashSet<>();
 
     public synchronized Set<PluginDependency> getDependencies() {

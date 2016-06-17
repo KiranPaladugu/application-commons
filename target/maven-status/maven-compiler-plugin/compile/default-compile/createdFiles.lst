@@ -19,6 +19,7 @@ com\tcs\application\pluign\PluginMethods.class
 com\tcs\application\tag\handler\ParamTypeTagHandler.class
 com\tcs\application\SingleChannelSubscriptionManger.class
 com\tcs\application\tag\handler\PluginTypeTagHandler.class
+com\tcs\application\pluign\PluginJaxB.class
 com\tcs\application\StartUi.class
 com\tcs\application\tag\handler\DeActivatorMethodTagHandler.class
 com\tcs\application\SubscriptionEvent.class
@@ -29,9 +30,11 @@ com\tcs\tools\resources\ResourceLocator.class
 com\tcs\application\tag\handler\PluginNameTagHandler.class
 com\tcs\application\pluign\PluginDeclaredException.class
 com\tcs\application\tag\handler\DefaultTaghandler.class
+com\tcs\application\pluign\PluginId.class
 com\tcs\application\tag\handler\PluginIdentifierTagHandler.class
 com\tcs\application\tag\handler\InputParamsTagHandler.class
 com\tcs\application\pluign\PluginMethodOutputParam.class
+com\tcs\application\pluign\ManagablePlugin.class
 com\tcs\application\tag\handler\PluginDependenciesTagHandler.class
 com\tcs\application\tag\handler\PluginDeclaredExceptionTagHandler.class
 com\tcs\application\pluign\PluginXmlhandler.class
@@ -56,3 +59,4 @@ com\tcs\application\ForkedNotifier.class
 com\tcs\application\tag\handler\ParamClassTagHandler.class
 com\tcs\application\Context.class
 com\tcs\application\pluign\PluginMethodInputParam.class
+com\tcs\application\pluign\PluginManager.class

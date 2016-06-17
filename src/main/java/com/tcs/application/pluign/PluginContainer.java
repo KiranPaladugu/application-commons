@@ -14,7 +14,7 @@ public class PluginContainer implements Subscriber {
     }
     
     public  void load(){
-        Application.getSubscriptionManager().subscribe(this, Application.PLUGIN_FOUND);
+        Application.getSubscriptionManager().subscribe(this, Application.PLUGIN_FOUND,Application.PLUGIN_LOAD_COMPLETE);
     }
     
     /**
@@ -31,12 +31,13 @@ public class PluginContainer implements Subscriber {
      * @see com.tcs.application.Subscriber#onSubscriptionEvent(com.tcs.application.SubscriptionEvent)
      */
     @Override
-    public void onSubscriptionEvent(SubscriptionEvent event) {
+    public synchronized void onSubscriptionEvent(SubscriptionEvent event) {
         switch (event.getEvent()) {
         case Application.PLUGIN_FOUND:
             System.out.println("Found the valid plugin here:"+event.getData());
             Application.getSubscriptionManager().notifySubscriber(PluginManager.START_PLUGIN_REQUEST, this, event.getData());
             break;
+        case Application.PLUGIN_LOAD_COMPLETE:
 
         default:
             break;

@@ -7,12 +7,16 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginDeclaredExceptions implements Serializable{
 
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    @XmlElement(name="exceptions")
     private Set<PluginDeclaredException> exceptionsDeclared = new HashSet<>();
 
     public synchronized Set<PluginDeclaredException> getExceptionsDeclared() {

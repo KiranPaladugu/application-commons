@@ -7,11 +7,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginMethodInputParam implements Serializable{
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    @XmlElement(name="param")
     private List<PluginMethodParam> inputParams = new ArrayList<>();
 
     public synchronized List<PluginMethodParam> getInputParams() {

@@ -4,6 +4,7 @@
 package com.tcs.application.pluign;
 
 import java.io.File;
+import java.util.Arrays;
 
 import com.tcs.application.*;
 
@@ -53,6 +54,7 @@ public class PluginLoader implements Subscriber {
         JarLoader loader = new JarLoader();
         if (file.exists() && file.isDirectory() && file.canRead()) {
             File[] files = file.listFiles();
+            Arrays.sort(files);
             for (File readFile : files) {
                 PluginIdentifier identifier = new PluginIdentifier();
                 PluginDataObject pluginDataObject = identifier.identify(readFile);

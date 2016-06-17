@@ -5,11 +5,15 @@ package com.tcs.application.pluign;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.*;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PluginMethodOutputParam implements Serializable{
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
+    @XmlElement(name="param")
     private PluginMethodParam returnType;
 
     public synchronized PluginMethodParam getReturnType() {

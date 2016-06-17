@@ -10,4 +10,8 @@ public interface Plugin {
     public String getName();
     public void setIdentifier(String identifier);
     public String getIdentifier();
+    public String getVersion();
+    public String getClassName();
+    public String getActivatorMethod();
+    public String getDeActivatorMethod();
 }
