@@ -1,3 +1,4 @@
+com\tcs\application\pluign\PluginResource.class
 com\tcs\application\tag\handler\IdentifierTagHandler.class
 com\tcs\application\SubscriptionEventDelegator.class
 com\tcs\application\JarLoader.class
@@ -58,5 +59,6 @@ com\tcs\application\tag\handler\PluginTagHandler.class
 com\tcs\application\ForkedNotifier.class
 com\tcs\application\tag\handler\ParamClassTagHandler.class
 com\tcs\application\Context.class
+com\tcs\application\resolver\ResourceResolver.class
 com\tcs\application\pluign\PluginMethodInputParam.class
 com\tcs\application\pluign\PluginManager.class

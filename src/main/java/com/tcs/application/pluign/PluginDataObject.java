@@ -4,6 +4,8 @@
 package com.tcs.application.pluign;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.*;
 
@@ -38,7 +40,32 @@ public class PluginDataObject implements Serializable,Plugin {
     private PluginMethods methods;
     @XmlElement
     private PluginDependencies dependencies;
+    @XmlElementWrapper(name="resources")
+    @XmlElement(name="resource")
+    private List<PluginResource> resources = new ArrayList<>();
     
+    public List<PluginResource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<PluginResource> resources) {
+        this.resources = resources;
+    }
+    
+    public boolean addResource(PluginResource resource){
+        if(resources==null){
+            resources = new ArrayList<PluginResource>();
+        }
+        return resources.add(resource);
+    }
+    
+    public boolean addResources(List<PluginResource> resources) {
+        if(this.resources==null){
+            this.resources = new ArrayList<PluginResource>();
+        }
+        return this.resources.addAll(resources);
+    }
+
     @XmlAttribute(name="id")
     private String id;
 //    private String[] memberNames = { "name", "version", "className", "id" };
@@ -244,7 +271,5 @@ public class PluginDataObject implements Serializable,Plugin {
     public String getPlugId() {
         return this.id;
     }
-
-   
 
 }

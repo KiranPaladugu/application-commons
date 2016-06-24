@@ -30,11 +30,18 @@ public class PluginJaxB {
         PluginMethods methods = new PluginMethods();
         methods.addMethod(method);
         obj.setMethods(methods);
+        PluginResource resource1 = new PluginResource();
+        resource1.setResourceName("soneName");
+        resource1.setLocalName("someOthername");
+        obj.addResource(resource1);
         
         PluginDependencies dependencies = new PluginDependencies();
         dependencies.addDependency(new PluginDependency("SomeName", "SomeIdentification", "someLoaction"));
         obj.setDependencies(dependencies);
         obj.setId("SomUUID");
         JAXB.marshal(obj, new File("C:\\Users\\ekirpal\\Desktop\\Sample.xml"));
+        
+        PluginDataObject newObj = JAXB.unmarshal(new File("C:\\Users\\ekirpal\\Desktop\\Sample.xml"), PluginDataObject.class);
+        System.out.println(newObj.toString());
     }
 }

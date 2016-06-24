@@ -6,6 +6,7 @@ package com.tcs.application;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.tcs.application.pluign.*;
+import com.tcs.application.resolver.ResourceResolver;
 
 public class Application implements Subscriber {
 
@@ -20,6 +21,7 @@ public class Application implements Subscriber {
     public static final String PLUGIN_FOUND = "plugin_found";
     public static final String PLUGIN_LOAD_FAILED = "pluginLoadFailed";
     public static final String PLUGIN_LOAD_COMPLETE="pluignLoadingCompleted";
+    public static final String LOAD_RESOURCES = "loadResources";
 
     private static Application application = new Application();
     private AtomicBoolean started = new AtomicBoolean(false);
@@ -55,6 +57,10 @@ public class Application implements Subscriber {
     public static final PluginManager getPluginManager() {
         return PluginManager.getPluginManager();
     }
+    
+    public static final ResourceResolver getResourceResolver(){
+        return ResourceResolver.getResourceResolver();
+    }
 
     public synchronized Application startApplication() {
        /* if (!started.get()) {
@@ -87,17 +93,18 @@ public class Application implements Subscriber {
     public synchronized void onSubscriptionEvent(SubscriptionEvent event) {
         switch (event.getEvent()) {
         case START:
-            this.started.set(true);
+            getResourceResolver().start();            
             getPluginManager().start();
-            getSubscriptionManager().notifySubscriber(LOAD_PLUGINS);
+            getSubscriptionManager().notifySubscriber(LOAD_PLUGINS);            
+            this.started.set(true);
             break;
         case EXIT:
-            System.out.println("Exiting Application..");
+            System.out.println("[INFO] => Exiting Application..");
             getPluginManager().stopAllPlugins();
             Application.getSubscriptionManager().printStats();
             System.exit(0);
         case PLUGIN_LOAD_FAILED:
-            System.out.println("Plugin load failed");
+            System.out.println("[WARNING] => Plugin load failed");
             break;
         default:
             break;

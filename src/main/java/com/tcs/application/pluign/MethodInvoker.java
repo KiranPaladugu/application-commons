@@ -75,7 +75,7 @@ public class MethodInvoker implements Runnable {
             if (types[i].equals(givenParamTypes[i]) || primitiveCheck(types[i], givenParamTypes[i])) {
                 continue;
             } else {
-                System.err.println(String.format("Check failed for type %s , with param %s",types[i].getName(),givenParamTypes[i].getName()));
+                System.err.println(String.format("[INFO] => "+"Check failed for type %s , with param %s",types[i].getName(),givenParamTypes[i].getName()));
                 return false;
             }
         }

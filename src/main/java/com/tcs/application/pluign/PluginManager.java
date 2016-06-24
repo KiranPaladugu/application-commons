@@ -67,9 +67,10 @@ public class PluginManager implements Subscriber {
                 e.printStackTrace();
             }
             try{
-                System.out.println("Starting plugin"+((PluginDataObject) event.getData()).getName());
+                System.out.println("[INFO] => "+"Starting plugin"+((PluginDataObject) event.getData()).getName());
             starter.startPluin((PluginDataObject) event.getData());
             }catch (Exception e) {
+                System.out.println("[ERROR] - Plugin start failed for pluign:"+((PluginDataObject) event.getData()).getName());
                 Application.getSubscriptionManager().notifySubscriber(Application.PLUGIN_LOAD_FAILED, this, event.getData());;
             }
             break;

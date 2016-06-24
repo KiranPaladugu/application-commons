@@ -31,7 +31,7 @@ public class SubscriptionChannel {
     }
 
     public synchronized boolean subscribe(String event, Subscriber subscriber) {
-        System.out.println("Subscribe [" + subscriber.getClass().getName() + "] to event [" + event+"]");
+        System.out.println("[INFO] => "+"Subscribe [" + subscriber.getClass().getName() + "] to event [" + event+"]");
         if (subscriptions.containsKey(event)) {
             subscriptionsCount++;
             return subscriptions.get(event).add(subscriber);
@@ -92,11 +92,11 @@ public class SubscriptionChannel {
             notificationsCount++;
             StackTraceElement caller = findCaller();
             System.out
-                    .println("--> Notification event [" + event + "] send by [" + caller.getClassName() + "." + caller.getMethodName()+"]");
+                    .println("[INFO] => "+"Notification event [" + event + "] send by [" + caller.getClassName() + "." + caller.getMethodName()+"]");
             if (subscriptions.containsKey(event)) {
                 Set<Subscriber> subscribers = subscriptions.get(event);
                 for (Subscriber subscriber : subscribers) {
-                    System.out.println("=> Sending event [" + event + "] to subscriber [" + subscriber.getClass().getName()+"]");
+                    System.out.println("[INFO] => "+"Sending event [" + event + "] to subscriber [" + subscriber.getClass().getName()+"]");
                     sendEventCount++;
                     new ForkedNotifier(subscriber, event, source, data, caller);
                 }
@@ -224,9 +224,9 @@ public class SubscriptionChannel {
     }
 
     public void printStats() {
-        System.out.println("subscribers served:" + this.subscriptionsCount);
-        System.out.println("Notifications recieved:" + this.notificationsCount);
-        System.out.println("Events send:" + this.sendEventCount);
-        System.out.println("Subscriptions removed:" + this.removedSubscriptionsCount);
+        System.out.println("[INFO] => "+"subscribers served:" + this.subscriptionsCount);
+        System.out.println("[INFO] => "+"Notifications recieved:" + this.notificationsCount);
+        System.out.println("[INFO] => "+"Events send:" + this.sendEventCount);
+        System.out.println("[INFO] => "+"Subscriptions removed:" + this.removedSubscriptionsCount);
     }
 }

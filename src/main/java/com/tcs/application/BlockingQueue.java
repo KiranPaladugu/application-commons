@@ -87,7 +87,7 @@ public class BlockingQueue<T> {
     }
     
     public void log(String log){
-        System.out.println(getThreadName()+" - "+log);
+        System.out.println("[DEBUG] => "+getThreadName()+" - "+log);
     }
 
     public String getName() {

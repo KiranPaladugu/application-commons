@@ -32,7 +32,7 @@ public class PluginXmlhandler extends DefaultHandler {
             handler.startElement(uri, localName, qName, attributes);
         } else {
             handler = null;
-            throw new SAXException("No Hanlder found for tag:"+qName);
+            throw new SAXException("[WARNING] => "+"No Hanlder found for tag:"+qName);
         }
     }
 

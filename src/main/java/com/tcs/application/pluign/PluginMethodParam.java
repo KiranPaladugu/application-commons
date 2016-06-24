@@ -21,7 +21,12 @@ public class PluginMethodParam implements Serializable{
     private String paramClass;
     @XmlElement(name="param-type")
     private ParamTypes paramType;
-    
+   
+    /**
+     * 
+     */
+    public PluginMethodParam() {
+    }
     
     /**
      * @param paramClass

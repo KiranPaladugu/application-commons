@@ -34,7 +34,7 @@ public class PluginStarter implements Subscriber {
             Object obj = loadedClass.newInstance();
             MethodInvoker invoker = new MethodInvoker();
             invoker.invokeTheMethod(obj, method);
-
+            System.out.println("[INFO] - Plugin start SUCCESS for plugin:"+pluginDataObject.getName());
         } catch (Exception e) {
             e.printStackTrace();
             Application.getSubscriptionManager().notifySubscriber(PluginManager.PLUGIN_START_FAIL, this, pluginDataObject);

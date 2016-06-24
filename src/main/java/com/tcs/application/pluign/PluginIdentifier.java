@@ -11,6 +11,8 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import javax.xml.bind.JAXB;
+
 public class PluginIdentifier {
 
     private final String[] fileTypes = { ".jar", ".war", ".ear" };
@@ -36,9 +38,13 @@ public class PluginIdentifier {
                     JarEntry entry = itr.nextElement();
                     if (entry.getName().toLowerCase().endsWith(pluginFileName.toLowerCase())) {
                         String xml = readPluginFile(entry, jarFile);
-                        PlguinXmlParser parser = new PlguinXmlParser();
-                        parser.parse(xml);
-                        pluginDataObject = parser.getDerivedPluginObject();
+                        pluginDataObject = JAXB.unmarshal(new StringReader(xml), PluginDataObject.class);
+                        if(pluginDataObject==null){
+                            System.out.println("[WARNING] => Failed to load jar as plugin:"+file.getAbsolutePath());
+                        }
+//                        PlguinXmlParser parser = new PlguinXmlParser();
+//                        parser.parse(xml);
+//                        pluginDataObject = parser.getDerivedPluginObject();
                         return pluginDataObject;
                     }
                 }

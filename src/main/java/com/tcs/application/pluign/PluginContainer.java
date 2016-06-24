@@ -34,7 +34,7 @@ public class PluginContainer implements Subscriber {
     public synchronized void onSubscriptionEvent(SubscriptionEvent event) {
         switch (event.getEvent()) {
         case Application.PLUGIN_FOUND:
-            System.out.println("Found the valid plugin here:"+event.getData());
+            System.out.println("[INFO] => "+"Found the valid plugin here:"+event.getData());
             Application.getSubscriptionManager().notifySubscriber(PluginManager.START_PLUGIN_REQUEST, this, event.getData());
             break;
         case Application.PLUGIN_LOAD_COMPLETE:
