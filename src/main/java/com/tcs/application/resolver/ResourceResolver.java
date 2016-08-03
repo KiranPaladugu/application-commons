@@ -50,9 +50,10 @@ public class ResourceResolver implements Subscriber {
             tmpDir = new File(DIRECTORY_SYTEM_TEMP + File.separator + getRandomUniqueId());
             while (tmpDir.exists()) {
                 tmpDir = new File(DIRECTORY_SYTEM_TEMP + File.separator + getRandomUniqueId());
-            }
+            }            
             tmpDir.mkdirs();
-        }
+            tmpDir.deleteOnExit();
+        }        
         return tmpDir;
     }
 
@@ -145,7 +146,7 @@ public class ResourceResolver implements Subscriber {
                 while (itr.hasMoreElements()) {
                     JarEntry entry = itr.nextElement();
                     if (entry.getName().endsWith(resourceName)) {
-                        System.out.println("String found Reosurce :" + resourceName + " in :" + file.getAbsolutePath());
+                        System.out.println("[INFO] => String found Reosurce :" + resourceName + " in :" + file.getAbsolutePath());
                         File extracted = this.extractArchiveEntry(entry, jarFile);
                         if (extracted != null) {
                             this.resourceMap.put(resourceName, extracted.getAbsolutePath());
@@ -312,5 +313,27 @@ public class ResourceResolver implements Subscriber {
             }
         }
         return false;
+    }
+    
+    public void destroy(){
+        if(tmpDir!=null && tmpDir.exists()){
+            tmpDir.deleteOnExit();
+            deleteFilesCascade(tmpDir);;
+            
+        }
+    }
+    
+    private void deleteFilesCascade(File file){
+        if(file!=null && file.exists()){
+            if(file.isDirectory()){
+                File[] files = file.listFiles();
+                for(File tmpFile:files){
+                    deleteFilesCascade(tmpFile);;
+                }
+                
+            }
+            System.out.println("[DEBUG] - Deleting file :"+file.getAbsolutePath());
+            file.delete();
+        }
     }
 }

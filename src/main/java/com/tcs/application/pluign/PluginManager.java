@@ -55,39 +55,58 @@ public class PluginManager implements Subscriber {
      */
     @Override
     public void onSubscriptionEvent(SubscriptionEvent event) throws Exception {
+        
         switch (event.getEvent()) {
         case Application.LOAD_PLUGINS:
             this.pluignLoader.startLoadingPluigns();
             break;
-        case START_PLUGIN_REQUEST :
+        case START_PLUGIN_REQUEST:
             PluginStarter starter = new PluginStarter();
             try {
                 pluginLoaderQueue.insert(starter);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            try{
-                System.out.println("[INFO] => "+"Starting plugin"+((PluginDataObject) event.getData()).getName());
-            starter.startPluin((PluginDataObject) event.getData());
-            }catch (Exception e) {
-                System.out.println("[ERROR] - Plugin start failed for pluign:"+((PluginDataObject) event.getData()).getName());
-                Application.getSubscriptionManager().notifySubscriber(Application.PLUGIN_LOAD_FAILED, this, event.getData());;
+            try {
+                System.out.println("[INFO] => " + "Starting plugin" + ((PluginDataObject) event.getData()).getName());
+                starter.startPluin((PluginDataObject) event.getData());
+            } catch (Exception e) {
+                System.out.println("[ERROR] - Plugin start failed for pluign:" + ((PluginDataObject) event.getData()).getName());
+                Application.getSubscriptionManager().notifySubscriber(Application.PLUGIN_LOAD_FAILED, this, event.getData());
+                ;
             }
             break;
         case PLUGIN_LOAD_FAILED:
             System.out.println("Plugin load failed");
+        case PLUGIN_START_FAIL:
+            Object obj = pluginLoaderQueue.peek();
+            if (obj != null && obj instanceof PluginStarter) {
+                PluginStarter str = popQueue();
+                System.out.println("[ERROR] - Plugin start failed for pluign : "+str.getPlugin().getName());
+            }
+            break;
         case PLUGIN_STARTED:
-            try {
-                Object obj = pluginLoaderQueue.peek();
-                if(obj != null && obj instanceof PluginStarter){
-                    PluginStarter str = (PluginStarter) pluginLoaderQueue.remove(30);
+            Object obj1 = pluginLoaderQueue.peek();
+            if (obj1 != null && obj1 instanceof PluginStarter) {
+                PluginStarter str = popQueue();
+                if (str != null) {
                     plugins.put(ManagablePlugin.getMO(str.getPlugin()), str.getPlugin());
-                    
+                    System.out.println("[INFO] Pluign Started :"+str.getPlugin().getName());
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }        
+            }
+            
+
         }
+    }
+
+    private PluginStarter popQueue() {
+        PluginStarter str = null;
+        try {
+            str = (PluginStarter) pluginLoaderQueue.remove(30);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 
     public static PluginManager getPluginManager() {
@@ -98,16 +117,16 @@ public class PluginManager implements Subscriber {
      * 
      */
     public void stopAllPlugins() {
-        
+
     }
 
     /**
      * 
      */
-    public boolean isPluginLoaded(String name, String identifier ) {
+    public boolean isPluginLoaded(String name, String identifier) {
         Set<ManagablePlugin> keys = this.plugins.keySet();
-        for(ManagablePlugin managablePlugin:keys){
-            if(managablePlugin.getName().equals(name) && managablePlugin.getIdentifier().equals(identifier)){
+        for (ManagablePlugin managablePlugin : keys) {
+            if (managablePlugin.getName().equals(name) && managablePlugin.getIdentifier().equals(identifier)) {
                 return true;
             }
         }

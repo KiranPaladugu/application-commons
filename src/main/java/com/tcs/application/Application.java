@@ -28,6 +28,7 @@ public class Application implements Subscriber {
 
     private Application() {
         Application.getSubscriptionManager().subscribe(this, START, STARTED, EXIT,PLUGIN_LOAD_FAILED);
+        Runtime.getRuntime().addShutdownHook(new ShutdownThreadHook());
     }
 
     public static final Context getApplicationContext() {
