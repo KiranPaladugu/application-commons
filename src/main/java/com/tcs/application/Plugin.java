@@ -14,4 +14,8 @@ public interface Plugin {
     public String getClassName();
     public String getActivatorMethod();
     public String getDeActivatorMethod();
+    
+    public void setVersion(String version);
+    public void setActivatorMethod(String activatorMethod);
+    public void setDeActivatorMethod(String deactivatorMethod);
 }
