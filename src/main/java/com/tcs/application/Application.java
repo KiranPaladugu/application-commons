@@ -10,6 +10,7 @@ import com.tcs.application.conf.ConfigurationManager;
 import com.tcs.application.pluign.PluginContainer;
 import com.tcs.application.pluign.PluginManager;
 import com.tcs.application.resolver.ResourceResolver;
+import com.tcs.application.tray.ApplicationTray;
 
 public class Application implements Subscriber {
 
@@ -84,6 +85,7 @@ public class Application implements Subscriber {
 		 * SwingUtilities.invokeAndWait(starter); } catch (InvocationTargetException e) { e.printStackTrace(); } catch
 		 * (InterruptedException e) { e.printStackTrace(); } }
 		 */
+		new ApplicationTray();
 		getSubscriptionManager().notifySubscriber(START, this);
 		return this;
 	}
