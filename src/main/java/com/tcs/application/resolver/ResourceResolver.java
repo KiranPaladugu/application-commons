@@ -4,6 +4,7 @@
 package com.tcs.application.resolver;
 
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.jar.JarEntry;
@@ -335,5 +336,13 @@ public class ResourceResolver extends AbstractResolver implements Subscriber {
 	@Override
 	public InputStream resolve(String uri) {
 		return getResourceAsStream((String) parse(uri));
+	}
+	
+	public String getJarName(Class<?> klass){
+	    URL location = klass.getResource('/' + klass.getName().replace('.', '/') + ".class");
+	    if(location!=null){
+	        return location.getFile();
+	    }
+	    return "";
 	}
 }
